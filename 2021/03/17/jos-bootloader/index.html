@@ -36,7 +36,10 @@
 <p>可以看到我们虽然使用了分段，但实际上为了将来的分页，这里的分段特性是期望尽可能 “抹除” 的，<strong>毕竟分段是 x86 的特性，而分页才是现代 OS 的共性</strong>。默认约定 GDT 第一个 Descriptor 为空段，所以要让分段透明，至少需要 null/code/data 三个段，而为了简单起见（毕竟进了 kernel 的逻辑就开启分页了，也就为了 <code>loader.c</code> 执行这么一会），所以代码和数据段都映射到了整段内存。</p>
 <p>定义好 GDT 之后需要通过 <code>lgdt</code> 设置 GDTR 寄存器的值（也就是代码中 <code>gdtdesc</code> 的值），需要注意的是 <code>limit = 0x17 = (segment-descriptor = 64-bit = 8-byte) * 3 - 1</code>（减 1 是约定）：</p>
 <p><img src="/images/jos-bootloader/gdtr.png"></p>
-<p>而在设置段寄存器时，Segment Selector 格式如下：</p>
+<p><strong>4. 开启 CR0.PE</strong></p>
+<p>参考 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Control_register#CR0">Control register</a>，这里通过 eax 保留了 CR0 除 PE 位之外其余位原本的值并将 PE 位置为 1。</p>
+<p><strong>5. 设置段选择子并跳到 loader.c 中的入口</strong></p>
+<p>在设置段寄存器时，Segment Selector 格式如下：</p>
 <p><img src="/images/jos-bootloader/segment_selector.png"></p>
 <p>可以看到代码段选择子为 <code>0x8</code>，其余为 <code>0x10</code>，段寄存器的赋值方式为：</p>
 <ul>
@@ -44,4 +47,4 @@
 <li> Implied load instructions such as the far pointer versions of the CALL, JMP, and RET instructions, the SYSENTER and SYSEXIT instructions, and the IRET, INT n, INTO, INT3, and INT1 instructions. <strong>These instructions change the contents of the CS register</strong> (and sometimes other segment registers) as an incidental part of their operation.</li>
 </ul>
 <p>// TODO</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2021/03/18/jos-memory/" class="prev">PREV</a></div><div class="copyright"><p>© 2015 - 2021 <a href="http://4buf.com">4buf</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+</div></article></div></main><footer><div class="paginator"><a href="/2021/03/18/jos-memory/" class="prev">PREV</a></div><div class="copyright"><p>© 2015 - 2021 <a href="http://4buf.com">4buf</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p><p>友情链接：<a href="http://ghost.davidxu5945.com/" target="_blank">阿西的博客</a></p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
