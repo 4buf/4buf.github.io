@@ -16,7 +16,7 @@
 <li>设置段选择子并跳到 loader.c 中的入口</li>
 </ol>
 <p><strong>1. 清空段寄存器</strong></p>
-<p>实模式下寻址方式为 <code>段地址 &lt;&lt; 4 + 偏移量</code>，即 16-bit 凑出 20-bit（涉及历史原因），所以清空段寄存器这样 offset = PA。</p>
+<p>实模式下寻址方式为 <code>段基址 &lt;&lt; 4 + 偏移量</code>，即 16-bit 凑出 20-bit（涉及历史原因），所以清空段寄存器这样 offset = PA。</p>
 <p><strong>2. 开启 A20 line</strong></p>
 <p>A20 参考（其实就是键盘控制器和 A20 引脚的与门）：</p>
 <ul>
