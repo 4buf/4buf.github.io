@@ -25,7 +25,7 @@
 <li><a target="_blank" rel="noopener" href="https://bochs.sourceforge.io/techspec/PORTS.LST">XT, AT and PS/2 I/O port addresses</a></li>
 </ul>
 <p><strong>3. 加载 GDT</strong></p>
-<p>不同于 8086 实模式，32-bit 保护默认下 offset 已经有 32 位了，理论上我们可以这么玩：Offset = Logical-Address = Linear-Address = Physical-Address，但是 x86 的架构导致我们并不能限制段寄存器参与寻址，既然得带着它玩，那如果不开启分页单纯分段寻址，让段寄存器去切 4G 内存显然也不合理，毕竟它还是 16-bit 也切不到那么高的地方，这个时候就得想办法把 Segment-Base-Address 长度扩一点，那明显只有放内存里了，于时：</p>
+<p>不同于 8086 实模式，32-bit 保护模式下 offset 已经有 32 位了，理论上我们可以这么玩：Offset = Logical-Address = Linear-Address = Physical-Address，但是 x86 的架构导致我们并不能限制段寄存器参与寻址，既然得带着它玩，那如果不开启分页单纯分段寻址，让段寄存器去切 4G 内存显然也不合理，毕竟它还是 16-bit 也切不到那么高的地方，这个时候就得想办法把 Segment-Base-Address 长度扩一点，那明显只有放内存里了，于时：</p>
 <ul>
 <li>段基址在 GDT 中放到内存，GDT 是一张表，每个段寄存器可以指定使用其中一项，段寄存器中类似索引功能的值就被称为 <code>Segment Selector</code>，而 GDT 中的每一项称为 <code>Segment Descriptor</code></li>
 <li>CPU 也需要知道 GDT 在哪/有多大，这个值被放到了 GDTR 寄存器</li>
