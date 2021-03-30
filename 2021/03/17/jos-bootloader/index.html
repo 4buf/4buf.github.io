@@ -9,7 +9,7 @@
 
 <p>boot 有几步：</p>
 <ol>
-<li>清空段寄存器</li>
+<li>清空数据段寄存器（bios 引导完 cs:ip = 0x7c00，所以 cs 不需要设置）</li>
 <li>开启 A20 line</li>
 <li>加载 GDT</li>
 <li>开启 CR0.PE</li>
