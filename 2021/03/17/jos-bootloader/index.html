@@ -73,5 +73,15 @@
 <p><img src="/images/jos-bootloader/ir_gdt.png"></p>
 <p>前面提到过 GDTR 的格式，可以很容易的看出来 Linear-Base-Address = 0x7c50 / Table-Limit = 0x17，也就是说 GDT 在内存 <code>0x7c50</code> 这里，用 <a target="_blank" rel="noopener" href="https://blog.csdn.net/baidu_24256693/article/details/47298513">gdb x</a> 看看长啥样：</p>
 <p><img src="/images/jos-bootloader/mem_gdt.png"></p>
+<p>继续 debug 可以看到 CR0.PE 位被开启：</p>
+<p><img src="/images/jos-bootloader/pe.png"></p>
+<p>一直到 <code>ljmp</code> 结束，我们才真正进入保护模式也就是 32-bit 环境下运行：</p>
+<p><img src="/images/jos-bootloader/32_registers.png"></p>
+<p>注意观察几个段寄存器值的变化，这其中有个比较有意思的地方，我们知道寻址时 CPU 先看段寄存器接着去找 GDTR 定位 GDT 是要经历一次内存寻址的，为了加快速度，Selector 指向的 Descriptor 会被 “缓存” 到段寄存器的 Hidden-Part 部分：</p>
+<p><img src="/images/jos-bootloader/sr_hidden_part.png"></p>
+<p>大概长这样：</p>
+<p><img src="/images/jos-bootloader/sr_hidden_part_desc.png"></p>
+<p>对比这个应该看的更明显：</p>
+<p><img src="/images/jos-bootloader/mem_gdt_h.png"></p>
 <p>// TODO</p>
 </div></article></div></main><footer><div class="paginator"><a href="/2021/03/18/jos-memory/" class="prev">PREV</a></div><div class="copyright"><p>© 2015 - 2021 <a href="http://4buf.com">4buf</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p><p>友情链接：<a href="http://ghost.davidxu5945.com/" target="_blank">阿西的博客</a></p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
