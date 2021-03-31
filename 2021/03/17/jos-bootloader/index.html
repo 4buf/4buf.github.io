@@ -60,7 +60,7 @@
 <ol>
 <li>将 <code>boot.S</code> 编译为 <code>boot.o</code></li>
 <li>将 <code>loader.c</code> 编译为 <code>loader.o</code></li>
-<li>将 <code>boot.o</code> 和 <code>loader.o</code> 链接为 <code>bootloader.tmp</code></li>
+<li>将 <code>boot.o</code> 和 <code>loader.o</code> 链接为 <code>bootloader.tmp</code>，链接后的入口为 <code>start</code>，.text section 起始地址为 <code>0x7c00</code></li>
 <li><code>bootloader.tmp</code> 已经是标准的 executable ELF binary，但现阶段一切还是 “裸跑” 的，ELF 对于我们来说并没有意义，需要把 .text section 给 copy 出来，再使用 <code>sign.pl</code> 稍微修改下使其满足 MBR 的要求，最终产物即 <code>bootloader</code></li>
 </ol>
 <h2 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h2><p><a target="_blank" rel="noopener" href="https://www.qemu.org/">QEMU</a> 可以不用编译全部 arch 否则会非常慢，但一定要包含 i386，<code>qemu-system-i386 -S -s -hda bootloader -nographic</code> 将 bootloader 作为启动盘镜像，新开 tty 使用 gdb <code>target remote :1234</code> 交互 debug，断点打到 <code>0x7c00</code> 可以看到 SeaBIOS “Booting from Hard Disk..” 的提示：</p>
