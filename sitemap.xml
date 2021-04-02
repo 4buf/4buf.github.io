@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://4buf.com/2021/03/17/jos-1-bootloader/</loc>
+    
+    <lastmod>2021-04-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://4buf.com/2021/03/19/jos-3-memory-management/</loc>
     
     <lastmod>2021-03-31</lastmod>
@@ -22,17 +29,10 @@
     
   </url>
   
-  <url>
-    <loc>http://4buf.com/2021/03/17/jos-1-bootloader/</loc>
-    
-    <lastmod>2021-03-31</lastmod>
-    
-  </url>
-  
 
   <url>
     <loc>http://4buf.com/</loc>
-    <lastmod>2021-03-31</lastmod>
+    <lastmod>2021-04-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -42,7 +42,7 @@
   
   <url>
     <loc>http://4buf.com/categories/jos/</loc>
-    <lastmod>2021-03-31</lastmod>
+    <lastmod>2021-04-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
