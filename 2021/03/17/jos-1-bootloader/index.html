@@ -48,7 +48,7 @@
 </ul>
 <p>最终在 call loader 之前，因为需要执行 C，所以需要设置栈，ss 已经设置过了，esp = $start 的地址即栈实际上是在 bootloader 这段代码前面的，也就是 0x7c00 前面往低地址增长。</p>
 <h2 id="loader-c"><a href="#loader-c" class="headerlink" title="loader.c"></a>loader.c</h2><p>暂且简单，后面再补充：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void load(void) &#123;</span><br><span class="line">	while (1) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void jos_loader_load(void) &#123;</span><br><span class="line">	while (1) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><p>此时目录结构如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- bootloader&#x2F;</span><br><span class="line">    - boot.S</span><br><span class="line">    - loader.c</span><br><span class="line">    - sign.pl</span><br><span class="line">- Makefile</span><br></pre></td></tr></table></figure>
